@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*"
+    tools:context=".MainActivity">
+
+    <!-- Display -->
+    <EditText
+        android:id="@+id/etno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:hint="0"
+        android:inputType="numberDecimal"
+        android:textSize="28sp" />
+
+    <!-- C DEL / -->
+    <TableRow>
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="C" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="DEL" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="/" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="*" />
+
+    </TableRow>
+
+    <!-- 7 8 9 - -->
+    <TableRow>
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="1" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="2" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="3" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="-" />
+
+    </TableRow>
+
+    <!-- 4 5 6 + -->
+    <TableRow>
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="4" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="5" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="6" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="+" />
+
+    </TableRow>
+
+    <!-- 1 2 3 = -->
+    <TableRow>
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="7" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="8" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="9" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:text="=" />
+
+    </TableRow>
+
+    <!-- 0 -->
+    <TableRow>
+
+        <Button
+            android:layout_span="4"
+            android:onClick="onButtonClick"
+            android:text="0" />
+
+    </TableRow>
+
+</TableLayout>

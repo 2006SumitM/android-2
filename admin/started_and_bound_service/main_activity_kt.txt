@@ -1,0 +1,71 @@
+package com.example.pract27
+
+import android.content.ComponentName
+import android.content.Intent
+import android.content.ServiceConnection
+import android.os.Bundle
+import android.os.IBinder
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    private var mservice: MusicService? = null
+    private var isbound = false
+
+    private val connection = object : ServiceConnection {
+
+        override fun onServiceConnected(
+            name: ComponentName?,
+            service: IBinder?
+        ) {
+            val binder = service as MusicService.MusicBinder
+            mservice = binder.getService()
+            isbound = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            mservice = null
+            isbound = false
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_main)
+
+        val btnDownload = findViewById<Button>(R.id.btnDownload)
+        val startMusic = findViewById<Button>(R.id.btnPalyMusic)
+        val btnStop = findViewById<Button>(R.id.btnStop)
+
+        // Download Service
+        btnDownload.setOnClickListener {
+            val intent = Intent(this, DownloadService::class.java)
+            startService(intent)
+        }
+
+        // Play Music
+        startMusic.setOnClickListener {
+            mservice?.playMusic()
+        }
+
+        // Stop Music
+        btnStop.setOnClickListener {
+            mservice?.stopMusic()
+        }
+
+        // Bind Music Service
+        val intent = Intent(this, MusicService::class.java)
+        bindService(intent, connection, BIND_AUTO_CREATE)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (isbound) {
+            unbindService(connection)
+            isbound = false
+        }
+    }
+}

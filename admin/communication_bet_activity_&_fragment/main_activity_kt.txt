@@ -1,0 +1,46 @@
+package com.example.prac9
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity(), OrderFragment.OnMessageSendListener {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_main)
+
+        val itemName = findViewById<EditText>(R.id.etItemName)
+        val quantity = findViewById<EditText>(R.id.etQuantity)
+        val placeOrder = findViewById<Button>(R.id.btnPlace)
+        val result = findViewById<TextView>(R.id.tvResult)
+
+        placeOrder.setOnClickListener {
+
+            val name = itemName.text.toString()
+            val qt = quantity.text.toString()
+
+            val fragment = OrderFragment()
+
+            val bundle = Bundle()
+
+            bundle.putString("Food", name)
+            bundle.putString("Qty", qt)
+
+            fragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+    override fun onMessageSend(message: String) {
+        val result = findViewById<TextView>(R.id.tvResult)
+        result.text = message
+    }
+}

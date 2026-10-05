@@ -1,0 +1,27 @@
+package com.example.prac11
+
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val selected = findViewById<TextView>(R.id.tvSelected)
+        val games = findViewById<ListView>(R.id.lvGames)
+        val gname = arrayOf("Cricket","Football","Baseball","Hockey","Basket Ball","Tennis")
+        val gadapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,gname)
+        games.adapter=gadapter
+        games.setOnItemClickListener{_,_,position,_ ->
+            selected.text="selected game is ${gname[position]}"
+
+        }
+
+    }
+}

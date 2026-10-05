@@ -1,0 +1,50 @@
+package com.example.prac3
+import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+class MainActivity : AppCompatActivity() {
+    private val TAG = "Activity LifeCycle"
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        Toast.makeText(this, "Activity Created", Toast.LENGTH_LONG).show()
+        Log.i(TAG,"Activity Created")
+    }
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(this, "Activity Started", Toast.LENGTH_LONG).show()
+        Log.i(TAG,"Activity Started")
+    }
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(this, "Activity Resume", Toast.LENGTH_LONG).show()
+        Log.i(TAG,"Activity Resume")
+
+    }
+    override fun onRestart() {
+        super.onRestart()
+        Toast.makeText(this, "Activity Restart", Toast.LENGTH_LONG).show()
+        Log.i(TAG,"Activity Restart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(this, "Activity Pause", Toast.LENGTH_LONG).show()
+        Log.i(TAG,"Activity Pause")
+    }
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(this, "Activity Stop", Toast.LENGTH_LONG).show()
+        Log.i(TAG,"Activity Stop")
+
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Toast.makeText(this, "Activity Destroy", Toast.LENGTH_LONG).show()
+        Log.i(TAG,"Activity Destroy")
+
+    }
+}
+

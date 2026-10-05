@@ -1,0 +1,80 @@
+package com.example.prac10
+
+import android.os.Bundle
+import android.widget.RadioGroup
+import android.widget.CheckBox
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val etFullName = findViewById<EditText>(R.id.etFullName)
+        val etEmail = findViewById<EditText>(R.id.etEmail)
+        val etContactNo = findViewById<EditText>(R.id.etContactNo)
+        val etAddress = findViewById<EditText>(R.id.etAddress)
+        val etCity = findViewById<EditText>(R.id.etCity)
+        val etState = findViewById<EditText>(R.id.etState)
+        val etCountry = findViewById<EditText>(R.id.etCountry)
+        val etQualification = findViewById<EditText>(R.id.etQualification)
+        val etSkills = findViewById<EditText>(R.id.etSkills)
+        val btnSubmit = findViewById<Button>(R.id.btnSubmit)
+        val btnReset = findViewById<Button>(R.id.btnReset)
+        val echeckBox1 = findViewById<CheckBox>(R.id.echeckBox1)
+        val echeckBox2 = findViewById<CheckBox>(R.id.echeckBox2)
+        val echeckBox3 = findViewById<CheckBox>(R.id.echeckBox3)
+        val echeckBox4 = findViewById<CheckBox>(R.id.echeckBox4)
+        val radioGroupGender = findViewById<RadioGroup>(R.id.radioGroupGender)
+        btnSubmit.setOnClickListener {
+
+            val name = etFullName.text.toString().trim()
+
+            if (name.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "Please enter your name",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+
+            else {
+                Toast.makeText(
+                    this,
+                    "Form submitted by $name",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+
+
+
+        }
+
+        btnReset.setOnClickListener {
+
+            etFullName.text.clear()
+            etEmail.text.clear()
+            etContactNo.text.clear()
+            etAddress.text.clear()
+            etCity.text.clear()
+            etState.text.clear()
+            etCountry.text.clear()
+            etQualification.text.clear()
+            etSkills.text.clear()
+            echeckBox1.isChecked = false
+            echeckBox2.isChecked = false
+            echeckBox3.isChecked = false
+            echeckBox4.isChecked = false
+            radioGroupGender.clearCheck()
+
+            Toast.makeText(this, "Form Cleared", Toast.LENGTH_SHORT).show()
+
+        }
+    }
+}

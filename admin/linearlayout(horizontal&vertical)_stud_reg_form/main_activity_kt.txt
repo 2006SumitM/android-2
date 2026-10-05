@@ -1,0 +1,55 @@
+package com.example.prac4
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val fname = findViewById<EditText>(R.id.etFname)
+        val lname = findViewById<EditText>(R.id.etLname)
+        val email = findViewById<EditText>(R.id.eEmail)
+        val ctno = findViewById<EditText>(R.id.ePhone)
+
+        val register = findViewById<Button>(R.id.btnRegister)
+        val reset = findViewById<Button>(R.id.btnReset)
+
+        register.setOnClickListener {
+
+            val fn = fname.text.toString()
+            val ct = ctno.text.toString()
+
+            if (fn != "" && ct != "") {
+                val data = fn + " " + ct + " Registered Successful"
+                Toast.makeText(
+                    this,
+                    data,
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Please Enter Details",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+        reset.setOnClickListener {
+            fname.text.clear()
+            lname.text.clear()
+            email.text.clear()
+            ctno.text.clear()
+            Toast.makeText(
+                this,
+                "Reset Successful",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+}

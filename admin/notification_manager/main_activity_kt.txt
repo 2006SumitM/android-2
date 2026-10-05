@@ -1,0 +1,159 @@
+package com.example.prac26
+
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+
+class MainActivity : AppCompatActivity() {
+
+    private val channelId = "DemoChannel"
+    private val REQUEST_CODE_NOTIFICATION = 101
+
+    // Store which button was clicked so we can show the correct notification after permission
+    private var pendingNotificationType: Int = 0   // 1 = clickable, 2 = non-clickable
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+
+        val btnClick = findViewById<Button>(R.id.btnClick)
+        val btnNonClick = findViewById<Button>(R.id.btnNonClick)
+
+        createNotificationChannel()
+
+        // Clickable Notification
+        btnClick.setOnClickListener {
+            pendingNotificationType = 1
+            checkAndRequestNotificationPermission()
+        }
+
+        // Non Clickable Notification
+        btnNonClick.setOnClickListener {
+            pendingNotificationType = 2
+            checkAndRequestNotificationPermission()
+        }
+    }
+
+    private fun checkAndRequestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    // Already granted → show notification
+                    showSelectedNotification()
+                }
+                else -> {
+                    // Request the permission
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                        REQUEST_CODE_NOTIFICATION
+                    )
+                }
+            }
+        } else {
+            // Below Android 13 → no need for runtime permission
+            showSelectedNotification()
+        }
+    }
+
+    // This is called when the user responds to the permission dialog
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == REQUEST_CODE_NOTIFICATION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showSelectedNotification()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Notification permission is required",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun showSelectedNotification() {
+        when (pendingNotificationType) {
+            1 -> showClickableNotification()
+            2 -> showNonClickableNotification()
+        }
+    }
+
+    private fun showClickableNotification() {
+        val intent = Intent(this, MainActivity::class.java)
+
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setContentTitle("Clickable Notification")
+            .setContentText("Tap to Reload the application")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(false)
+            .setOngoing(true)
+
+        val notificationManager =
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        notificationManager.notify(2, builder.build())
+    }
+
+    private fun showNonClickableNotification() {
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setContentTitle("Non Clickable Notification")
+            .setContentText("This text cannot be clicked")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(false)
+            .setOngoing(true)
+
+        val notificationManager =
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        notificationManager.notify(1, builder.build())
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId,
+                "Demo Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.description = "Channel for Demo Notifications"
+
+            val notificationManager =
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+}

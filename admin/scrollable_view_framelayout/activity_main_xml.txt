@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="Student Form"
+            android:textColor="#222222"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="name"
+            android:background="#FFFFFF"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="emailAddress"
+            android:background="#FFFFFF"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/etContactNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="phone"
+            android:background="#FFFFFF"
+            android:hint="Contact No"
+            android:inputType="phone"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="postalAddress"
+            android:background="#FFFFFF"
+            android:gravity="top"
+            android:hint="Address"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="addressLocality"
+            android:background="#FFFFFF"
+            android:hint="City"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/etState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="addressRegion"
+            android:background="#FFFFFF"
+            android:hint="State"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/etCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="countryName"
+            android:background="#FFFFFF"
+            android:hint="Country"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/etQualification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="none"
+            android:background="#FFFFFF"
+            android:hint="Qualification"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/etSkills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:autofillHints="none"
+            android:background="#FFFFFF"
+            android:hint="Skills"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="#222222"
+            android:textColorHint="#777777" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/eText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Gender"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/rbMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/rbFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/eText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Hobbies"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/echeckBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reading" />
+
+            <CheckBox
+                android:id="@+id/echeckBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Writing" />
+
+            <CheckBox
+                android:id="@+id/echeckBox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dancing" />
+
+            <CheckBox
+                android:id="@+id/echeckBox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Riding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarStyle"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnSubmit"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="#4CAF50"
+                android:text="Submit"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btnReset"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="#F44336"
+                android:text="Reset"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

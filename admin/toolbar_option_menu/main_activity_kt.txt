@@ -1,0 +1,40 @@
+package com.example.prac21
+
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.prac21.R.id.toolbar
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+       val tbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(tbar)
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.mymenu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.mi_search ->
+                Toast.makeText(this, "Search Option Selected", Toast.LENGTH_SHORT).show()
+            R.id.mi_setting ->
+                Toast.makeText(this, "Setting Option Selected", Toast.LENGTH_SHORT).show()
+            R.id.mi_about ->
+                Toast.makeText(this, "About Option Selected", Toast.LENGTH_SHORT).show()
+        }
+        return true
+
+    }
+}

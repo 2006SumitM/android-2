@@ -1,0 +1,50 @@
+package com.example.prac23
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val alertdg = findViewById<Button>(R.id.btnAlert)
+        val custdg = findViewById<Button>(R.id.btnCustom)
+        alertdg.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Alert Dialog Demo")
+            builder.setMessage("Do you want to save?")
+            builder.setPositiveButton("Yes")
+            {dialog,_-> Toast.makeText(this,"File Saved", Toast.LENGTH_LONG).show() }
+            builder.setNegativeButton("No")
+            {dialog,_-> Toast.makeText(this,"File Not Saved", Toast.LENGTH_LONG).show() }
+            builder.setCancelable(false)
+            builder.show()
+
+        }
+
+        custdg.setOnClickListener {
+            val view = LayoutInflater.from(this).inflate(R.layout.cutom_dialog,null)
+            val builder = AlertDialog.Builder(this).setView(view).setTitle("Custom Dialog Demo").setCancelable(false)
+            val custdialog = builder.create()
+            val fname = view.findViewById<EditText>(R.id.etFileName)
+            val ok  = view.findViewById<Button>(R.id.btnOK)
+            ok.setOnClickListener {
+                val f = fname.text.toString()
+                Toast.makeText(this,"File saved with ${f} name", Toast.LENGTH_LONG).show()
+                custdialog.dismiss()
+            }
+            custdialog.show()
+        }
+
+    }
+}

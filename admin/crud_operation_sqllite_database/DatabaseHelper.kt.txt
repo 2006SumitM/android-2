@@ -1,0 +1,65 @@
+package com.example.prac8
+
+import android.content.ContentValues
+import android.content.Context
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
+
+class DatabaseHelper(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+
+    override fun onCreate(db: SQLiteDatabase) {
+        val query: String =
+            "CREATE TABLE student (Rollno INTEGER PRIMARY KEY, Name TEXT, Course TEXT)"
+        db.execSQL(query)
+    }
+
+    override fun onUpgrade(
+        db: SQLiteDatabase,
+        oldVersion: Int,
+        newVersion: Int
+    ) {
+        db?.execSQL("Drop table if exists student")
+        onCreate(db)
+    }
+
+    fun insertdata(id:Int,name:String?,course:String?): Boolean{
+        val db: SQLiteDatabase=this.writableDatabase
+        var values = ContentValues()
+        values.put("Rollno",id)
+        values.put("Name",name)
+        values.put("Course",course)
+        val result = db.insert("Student",null,values)
+        return result>0
+    }
+
+    fun upadteStudent(id:Int,name:String?,course:String?): Boolean
+    {
+        val db: SQLiteDatabase=this.writableDatabase
+        var values = ContentValues()
+        values.put("Name",name)
+        values.put("Course",course)
+        val result = db.update("Student",values,"Rollno=?",arrayOf<String>(id.toString()))
+        return result>0
+    }
+
+    fun deleteStudent(id:Int): Boolean
+    {
+        val db: SQLiteDatabase=this.writableDatabase
+        val result = db.delete("Student","Rollno=?",arrayOf<String>(id.toString()))
+        return result>0
+    }
+
+    val allstudent: Cursor
+        get()
+        {
+            val db: SQLiteDatabase=this.writableDatabase
+            return db.rawQuery("Select * from Student",null)
+        }
+
+    companion object {
+        private const val DATABASE_NAME = "Studentdb.db"
+        private const val DATABASE_VERSION = 1
+    }
+}

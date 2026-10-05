@@ -1,0 +1,122 @@
+package com.example.prac8
+
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ListView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    var dbhelper: DatabaseHelper? = null
+    var list: ListView? = null
+    var etRollno: EditText? = null
+    var etName: EditText? = null
+    var etcourse: EditText? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        etRollno = findViewById(R.id.etRollNo)
+        etName = findViewById(R.id.etName)
+        etcourse = findViewById(R.id.etCourse)
+
+        list = findViewById(R.id.listViewStudents)
+
+        dbhelper = DatabaseHelper(this)
+
+        val btnadd = findViewById<Button>(R.id.btnAdd)
+        val btnupdate = findViewById<Button>(R.id.btnUpdate)
+        val btndelete = findViewById<Button>(R.id.btnDelete)
+        val btnviewall = findViewById<Button>(R.id.btnStudent)
+
+        btnadd.setOnClickListener {
+            val rollno = etRollno?.text.toString().toInt()
+            val name = etName?.text.toString()
+            val course = etcourse?.text.toString()
+
+            val result = dbhelper?.insertdata(rollno, name, course)
+
+            if (result == true) {
+                Toast.makeText(
+                    this,
+                    "Record Inserted",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                clearfields()
+            }
+        }
+
+        btnupdate.setOnClickListener {
+            val rollno = etRollno?.text.toString().toInt()
+            val name = etName?.text.toString()
+            val course = etcourse?.text.toString()
+
+            val result = dbhelper?.upadteStudent(rollno, name, course)
+
+            if (result == true) {
+                Toast.makeText(
+                    this,
+                    "Record Updated",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                clearfields()
+            }
+        }
+
+        btndelete.setOnClickListener {
+            val rollno = etRollno?.text.toString().toInt()
+
+            val result = dbhelper?.deleteStudent(rollno)
+
+            if (result == true) {
+                Toast.makeText(
+                    this,
+                    "Record Deleted",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                clearfields()
+            }
+        }
+
+        btnviewall.setOnClickListener {
+            displaystudent()
+        }
+    }
+
+    private fun displaystudent() {
+        val cursor = dbhelper?.allstudent
+        val stud_list = ArrayList<String?>()
+
+        while (cursor!!.moveToNext()) {
+            val rno = cursor.getInt(0)
+            val name = cursor.getString(1)
+            val course = cursor.getString(2)
+
+            stud_list.add(
+                rno.toString() + " " + name + " " + course
+            )
+        }
+
+        val studadapter = ArrayAdapter<String?>(
+            this,
+            android.R.layout.simple_list_item_1,
+            stud_list
+        )
+
+        list!!.adapter = studadapter
+    }
+
+    private fun clearfields() {
+        etRollno?.setText("")
+        etName?.setText("")
+        etcourse?.setText("")
+        etRollno?.requestFocus()
+    }
+}

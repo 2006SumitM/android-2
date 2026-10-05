@@ -1,0 +1,23 @@
+package com.example.prac2
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    private var isFirst = true
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val btn = findViewById<Button>(R.id.button)
+        val img = findViewById<ImageView>(R.id.imageView)
+        btn.setOnClickListener {
+            if (isFirst) {
+                img.setImageResource(R.drawable.waste2)
+            } else {
+                img.setImageResource(R.drawable.waste1)
+            }
+            isFirst = !isFirst
+        }
+    }
+}
